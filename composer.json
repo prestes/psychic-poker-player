@@ -1,0 +1,13 @@
+{
+    "name": "prestes/psychic-poker-player",
+    "description": "PHP implementation of the psychic poker player problem.",
+    "authors": [
+        {
+            "name": "Rodrigo Prestes",
+            "email": "rtprestes@gmail.com"
+        }
+    ],
+    "require": {
+        "phpunit/phpunit": "3.7.*"
+    }
+}
