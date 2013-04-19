@@ -1,4 +1,4 @@
-## Py-Psychic-Poker-Player
+# Psychic-Poker-Player
 
 
  In 5-card draw poker, a player is dealt a hand of five cards (which may be looked at). The player may then discard between zero and five of his or her cards and have them replaced by the same number of cards from the top of the deck (which is face down). The object is to maximize the value of the final hand. The different values of hands in poker are given at the end of this problem.
