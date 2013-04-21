@@ -4,12 +4,12 @@
 	convertErrorsToExceptions="true"
 	convertNoticesToExceptions="true"
 	convertWarningsToExceptions="true"
+	bootstrap="bootstrap.php"
 	stopOnFailure="false">
-	<!-- bootstrap="app/config/bootstrap.php" -->
 
 	<testsuites>
 		<testsuite name="Unit Tests">
-            		<directory>app/tests/unit/</directory>
+            		<directory>tests</directory>
 		</testsuite>
 	</testsuites>
 </phpunit>
