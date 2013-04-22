@@ -1,17 +1,16 @@
 <?php
-require_once 'bootstrap.php';
+require_once 'src/bootstrap.php';
 
 class Main {
-	public function run() {
-		
+	public static function run() {
+		echo 'Type the line corresponding to the cards: ';
 		while(true) {
 		    $current_line = fgets(STDIN,1024);
 		    $current_line = trim($current_line);
             //  read until reaching an empty line
 		    if($current_line != '') {
 		        $game = new Game($current_line);
-                //  assuming input is valid, otherwise php doesnt care anyway
-		        printf("\r\n" . $game->getBestHand() . "\r\n");
+		        printf($game->getBestHand() . PHP_EOL);
 		        unset($game);
 		    } else {
 		        exit;

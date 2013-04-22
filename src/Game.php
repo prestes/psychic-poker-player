@@ -46,19 +46,22 @@ class Game {
 
         //  for each possible number of cards removed from hand
         for($cardsRemoved = 0; $cardsRemoved <= 5; $cardsRemoved++) {
-    		//	cards on deck are fixed, so we shuffle from the hand $i! combinations
-    		//	choose (5-i) cards from first 5 cards (0-4) and (i) cards in order from second 5 cards (5-9)
+    		// choose "5 - $cardsRemoved" cards from first 5 cards (0-4) 
+            // and ($cardsRemoved) cards in order from second 5 cards (5-9)
     		foreach($combinations[$cardsRemoved] as $combination) {
     			$hand = new Hand();
     			
-                foreach($combination as $id) {
-    				$hand->addCard($this->cards[$id]);
+                // add cards to hand
+                foreach($combination as $cardKey) {
+    				$hand->addCard($this->cards[$cardKey]);
     			}
 	    		
-                for($j = 5; $j < 10 - $cardsRemoved; $j++) {
-	    			$hand->addCard($this->cards[$j]);
+                // adds cards from deck
+                for($deckCardIndex = 5; $deckCardIndex < 10 - $cardsRemoved; $deckCardIndex++) {
+	    			$hand->addCard($this->cards[$deckCardIndex]);
                 }
 
+                // store the bestValue of the hand
 	    		$value = $hand->getValue();
 	    		if ($value < $this->bestValue) {
 	    			$this->bestValue = $value;
@@ -69,10 +72,10 @@ class Game {
     		}    		
     	}
 
-        return $this->getFinalResponse();
+        return $this->getFinalAnswer();
     }
 
-    private function getFinalResponse() {
+    private function getFinalAnswer() {
         $result = array(
             straight_flush  => 'straight-flush',
             four_of_a_kind  => 'four-of-a-kind',
@@ -89,27 +92,26 @@ class Game {
     }
 
     private function getAllPossibleCardCombinations() {
-        $combinations;
-        $data = array(0,1,2,3,4);
-        $result = array(array()); // We need to start with one empty element, we add or not add one element from data array each time
-        foreach ($data as $arr)
-        {
-            // This is the cartesian product:
+        $combinations = array();
+        // We need to start with one empty element, we add or not add one element from data array each time
+        $result = array(array());
+
+        // Creates the cartesian product of all possible card combinations
+        foreach (range(0,4) as $item) {
             $new_result = array();
             foreach ($result as $old_element) { 
-                // add item or not add, to all produced combinations
-                $new_result [] = array_merge($old_element,(array)$arr);
-                $new_result [] = array_merge($old_element,(array)'null');
+                $new_result[] = array_merge($old_element, array($item));
+                $new_result[] = array_merge($old_element, array('void'));
             }
             $result = $new_result;
         }
-        
-        //  put all combinations of same size in separate arrays 
+
+        // put all combinations of same size in separate arrays and removes the 'voids'
         foreach($result as $arr) {
-            //  removing null values
-            $arr = array_diff($arr, array('null'));
+            //  removing 'void' values
+            $arr = array_diff($arr, array('void'));
             //  adding each array of items to the list of arrays of same length
-            $combinations[count($arr)][]=$arr;
+            $combinations[count($arr)][] = $arr;
         }
 
         return $combinations;
